@@ -12,6 +12,7 @@
 -define(HTMLDIR, "../test/html-docs").
 -define(HTML1, "test1.html").
 -define(HTML2, "test2.html").
+-define(HTML3, "test3.html").
 
 
 %% [{HtmlFileName,Cases}]
@@ -38,7 +39,8 @@ test_definitions() ->
                {"count(/html/body/*/input[position() = 3]/preceding-sibling::*)",2},
                {"count(/html/body/*/input[position() = 3]/following-sibling::*)",6},
                {"/html/body/*/input[position() = 3]/following-sibling::*/@value",[<<"Val4">>,<<"Val5">>,<<"Val6">>, "", "", ""]},
-               {"/html/body/*/input[position() = 3]/following-sibling::input/@value",[<<"Val4">>,<<"Val5">>,<<"Val6">>, "", ""]}
+               {"/html/body/*/input[position() = 3]/following-sibling::input/@value",[<<"Val4">>,<<"Val5">>,<<"Val6">>, "", ""]},
+               {"//form/*[7]",[<<"\n\tText: ">>]}
               ]},
       {?HTML2,[
                {"/html/body/div[1]/a[3]/text()",[<<"ssddd">>]},
@@ -71,7 +73,12 @@ test_definitions() ->
                {"/html/body/div[1]/a[position() < 3]", 
                 [{<<"a">>,[{<<"href">>,<<"sss">>}],[<<"ssddd">>]}, 
                  {<<"a">>, [{<<"href">>,<<"sssd">>}], [<<"sfgfe">>]}]}
-              ]}
+              ]},
+      {?HTML3,[
+              {"/div//text()[2]", [<<"didi">>]}
+          ]
+      }
+
     ].
 
 
