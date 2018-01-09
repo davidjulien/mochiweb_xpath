@@ -10,7 +10,7 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
--define(HTMLDIR, "../test/html-docs").
+-define(HTMLDIR, "test/html-docs").
 -define(HTML1, "test1.html").
 -define(HTML2, "test2.html").
 -define(HTML3, "test3.html").
@@ -108,16 +108,14 @@ test_definitions() ->
                {"count(/html/body/ul/li/parent::*)", 2},
                %% {"count(/html/body/ul/li/text()/parent::*)", 4},  %%TODO: parent for non-elements
                {"/html/body/form/input/parent::form/@method", [<<"POST">>]},
-               {"//form/*[7]",[<<"\n\tText: ">>]}
+               {"//form/*[7]",[{<<"input">>,[{<<"type">>,<<"text">>}],[]}]},
                %% -- following-sibling --
                {"count(/html/body/*/input[position() = 3]/following-sibling::*)",5},
                {"/html/body/*/input[position() = 3]/following-sibling::input/@value",
                 [<<"Val4">>,<<"Val5">>,<<"Val6">>]},
                {"/html/body/*/input[position() = 3]/following-sibling::*/@value",
                 [<<"Val4">>,<<"Val5">>,<<"Val6">>]},
-               {"/html/body/*/input[position() = 3]/following-sibling::*/@value",[<<"Val4">>,<<"Val5">>,<<"Val6">>, "", "", ""]},
-               {"/html/body/*/input[position() = 3]/following-sibling::input/@value",[<<"Val4">>,<<"Val5">>,<<"Val6">>, "", ""]},
-               {"count(/html/body/*/input[position() = 3]/following-sibling::*)",6},
+               {"count(/html/body/*/input[position() = 3]/following-sibling::*)",5},
                %% -- preceding-sibling --
                {"count(/html/body/*/input[position() = 3]/preceding-sibling::*)",2},
                {"/html/body/*/input[position() = 3]/preceding-sibling::input/@value",
@@ -170,7 +168,7 @@ test_definitions() ->
                {"/html/body/div[@id='first']/@class = /html/body/div[@id='last']/@class", true}
               ]},
       {?HTML3,[
-              {"/div//text()[2]", [<<"didi">>]}
+              {"/div//text()[2]", [<<"\n    toto\n">>]}
           ]
       }
     ].
